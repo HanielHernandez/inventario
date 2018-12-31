@@ -1,21 +1,73 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
+<div class="container">
+    <div class="row mx-auto">
+        <h4 style="text-align: center">{{inventory_title}}</h4>
+      </div>
+      <div *ngIf="message!=''" class="row alert alert-success" role="alert">
+          {{message}}
+      </div>
+  <div class="row">
+    <div class="col"> 
+        <label for="inventory_title">Titulo:</label>
+    </div>
+    <div class="col">
+        <input type="text" [(ngModel)]="inventory_title"  [ngModelOptions]="{standalone: true}" class="form-control">
+    </div>
+    <div class="col">
+        <a (click)="saveTitle()"  class="btn btn-success"><i class="fas fa-save"></i>Guardar</a>
+    </div>
+  </div>
+  <div>
+    
+  </div>
+<div class="row">
+  <div class=col>
+    <label for="file">Plantilla</label>
+  </div>
+  <div class="col">
+      <input type="file" accept=".csv" (change)="changeListener($event.target.files)" />  
+  </div>
+  <div class="col">
+      <a (click)="newInventory()"  class="btn btn-primary"><i class="fas fa-file"></i>Nuevo</a>
+  </div>
 </div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
+  <div class="row  justify-content-md-center">
+    <div class="col-sm-4 ">
+        <a (click)="dowloaddata()"  class="btn btn-success btn-"><i class="fas fa-download"></i>descargar</a>
+    </div>
+      
+
+  </div>
+
+  <table  class="table">
+  
+      <tr>
+          <th scope="col">Descripción</th>
+          <th scope="col">UM</th>
+          <th scope="col">Fisico</th>
+          <th scope="col">Unidad</th>
+          <th scope="col">Total</th>
+          <th scope="col">Agregar</th>
+      </tr>
+   
+    <tbody>
+      <tr *ngFor="let item of items">
+        <td scope="row">{{item.descripcion}}</td>
+        <td>{{item.um}}</td>
+        <td>{{item.fisico}}</td>
+        <td>{{item.unidad}}</td>
+        <td>{{item.total}}</td>
+        <td>
+          <form action="">
+              <input type="number" [(ngModel)]="numer"  [ngModelOptions]="{standalone: true}" class="form-control" required>
+              <a class="btn btn-primary" (click)="sumItem(item.descripcion,'sum')" >Sumar</a>
+              <a class="btn btn-danger" (click)="sumItem(item.descripcion,'res')" >Restar</a>
+
+          </form>
+         
+        </td>
+      </tr>
+    </tbody>
+  </table>
 
 <router-outlet></router-outlet>
